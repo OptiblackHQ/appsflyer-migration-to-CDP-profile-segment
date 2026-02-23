@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.616.0",
+    "@segment/analytics-node": "^1.0.0",
+    "uuid": "^9.0.1"
+  }
+}
