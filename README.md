@@ -13,13 +13,10 @@ lambda-function/
 └── package.json
 1️⃣ index.mjs (Lambda Handler)
 
-⚠️ "type": "module" is required to use .mjs and ES module syntax.
+⚠️ "type": "module" is required in package.json to use .mjs and ES module syntax.
 
 🚀 Setup & Deployment Guide
 Step 1: Create Project Folder
-
-Create a new folder:
-
 mkdir lambda-function
 cd lambda-function
 
@@ -31,11 +28,11 @@ package.json
 
 Step 2: Open in VS Code
 
-Open VS Code.
+Open VS Code
 
 Click File → Open Folder
 
-Select the lambda-function folder.
+Select the lambda-function folder
 
 OR from terminal:
 
@@ -85,14 +82,11 @@ Step 5: Create Lambda Function
 
 Click Create function
 
-Choose:
-
-Author from scratch
+Choose Author from scratch
 
 Function name: your-function-name
 
-Runtime:
-Node.js 18.x (Recommended)
+Runtime: Node.js 18.x (Recommended)
 
 Click Create function
 
@@ -135,12 +129,77 @@ You should see:
 {
   "message": "Lambda function executed successfully"
 }
+🌍 Environment Variables (SEGMENT_WRITE_KEY)
+
+This Lambda requires the following environment variable:
+
+SEGMENT_WRITE_KEY
+
+This key is used to send events to Segment (Customer Data Platform).
+
+🔎 How to Find SEGMENT_WRITE_KEY in Segment
+
+Login to Segment:
+👉 https://app.segment.com
+
+Select your Workspace
+
+Click Connections
+
+Click Sources
+
+Select your Source (Example: HTTP API, Website, etc.)
+
+If you don’t have one:
+
+Click Add Source
+
+Choose HTTP API
+
+Create new source
+
+Go to:
+Settings → API Keys
+
+Copy the value labeled:
+
+Write Key
+
+That is your SEGMENT_WRITE_KEY.
+
+⚠️ Keep this secret. Do NOT commit it to GitHub.
+
+☁️ Add Environment Variable in AWS Lambda
+
+Open your Lambda function in AWS
+
+Go to Configuration
+
+Click Environment variables
+
+Click Edit
+
+Click Add environment variable
+
+Add:
+
+Key	Value
+SEGMENT_WRITE_KEY	your_actual_write_key
+
+Click Save
+
+🧠 Access Environment Variable in index.mjs
+const segmentWriteKey = process.env.SEGMENT_WRITE_KEY;
+
+if (!segmentWriteKey) {
+  throw new Error("SEGMENT_WRITE_KEY is not defined");
+}
 ⚙️ Common Issues
 ❌ Error: Cannot find module
 
-Make sure node_modules is included in the zip.
+Make sure node_modules is included in the zip
 
-Run npm install before zipping.
+Run npm install before zipping
 
 ❌ Handler not found
 
@@ -149,12 +208,26 @@ Ensure handler is:
 index.handler
 ❌ ES Module error
 
-Ensure "type": "module" is inside package.json.
+Ensure "type": "module" is inside package.json
+
+❌ Segment key undefined
+
+Make sure:
+
+Environment variable is added
+
+Lambda is redeployed after saving
+
+Key name is exactly: SEGMENT_WRITE_KEY
 
 📌 Notes
 
 Recommended runtime: Node.js 18.x or later
 
-Always zip the files inside the folder, not the folder itself.
+Always zip the files inside the folder, not the folder itself
 
-Make sure file names match exactly (case-sensitive).
+Never hardcode API keys
+
+Use Lambda environment variables for secrets
+
+Make sure file names match exactly (case-sensitive)
