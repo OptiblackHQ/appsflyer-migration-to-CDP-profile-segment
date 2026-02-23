@@ -158,13 +158,3 @@ Recommended runtime: Node.js 18.x or later
 Always zip the files inside the folder, not the folder itself.
 
 Make sure file names match exactly (case-sensitive).
-
-If you want, I can also create:
-
-A version with API Gateway integration
-
-A version with environment variables setup
-
-A version for Segment / Mixpanel webhook handling
-
-A ready-to-copy production README template
